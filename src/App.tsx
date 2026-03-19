@@ -74,12 +74,11 @@ export default function App() {
             src={minhaImagem} 
             alt="Comece no Digital" 
             className="w-full h-auto object-cover max-h-[500px] sm:max-h-[600px]"
-            referrerPolicy="no-referrer"
           />
         </div>
 
         {/* Copy Section */}
-        <div className="z-20 -mt-24 sm:-mt-32 relative px-4 w-full">
+        <div className="z-20 relative px-4 w-full">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-white tracking-tight leading-tight text-balance mx-auto">
             Destrave o Seu Potencial e <span className="text-[#66ff00]">Construa a Vida dos Seus Sonhos</span>
           </h1>
