@@ -5,7 +5,6 @@
 
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
-import minhaImagem from './minha-imagem.jpg';
 
 const ParticlesBackground = () => {
   const [particles, setParticles] = useState<any[]>([]);
@@ -71,7 +70,7 @@ export default function App() {
         <div className="w-full mb-8 relative rounded-2xl overflow-hidden shadow-2xl">
           <div className="absolute inset-0 bg-gradient-to-t from-[#070a05] via-transparent to-transparent z-10"></div>
           <img 
-            src={minhaImagem} 
+            src="/minha-imagem.jpg" 
             alt="Comece no Digital" 
             className="w-full h-auto object-cover max-h-[500px] sm:max-h-[600px]"
             referrerPolicy="no-referrer"
