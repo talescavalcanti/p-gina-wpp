@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --neon-green: #66ff00;
+  --bg-color: #070a05;
+  --text-dark: #050505;
+}
+
+body {
+  background: radial-gradient(circle at center, #111a0c 0%, var(--bg-color) 70%);
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Container necessário para o reflexo do chão */
+.btn-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* ============================ */
+/* ESTRUTURA BASE DO BOTÃO      */
+/* ============================ */
+.neon-button {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 18px 65px;
+  border: 4px solid var(--neon-green);
+  border-radius: 60px;
+  background: transparent;
+  text-decoration: none;
+  z-index: 2; /* Cria o contexto de empilhamento para os pseudo-elementos */
+}
+
+/* O Texto isolado para não conflitar com a animação de fundo */
+.neon-button .text {
+  position: relative;
+  z-index: 10;
+  color: var(--neon-green);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px var(--neon-green);
+  /* Transição focada apenas nas cores para ser ultra suave */
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+/* ============================ */
+/* CAMADAS DE CROSS-FADE MÁGICO */
+/* ============================ */
+
+/* CAMADA 1: O Brilho Pulsante (Roda infinito, nunca trava) */
+.neon-button::before {
+  content: '';
+  position: absolute;
+  top: -4px; left: -4px; right: -4px; bottom: -4px; /* Estica para cobrir a borda perfeitamente */
+  border-radius: 64px;
+  z-index: -1;
+  animation: breathe-glow 2s infinite alternate ease-in-out;
+  transition: opacity 0.4s ease; /* Transição suave de saída no hover */
+}
+
+/* CAMADA 2: O Brilho Intenso de Hover (Invisível por padrão) */
+.neon-button::after {
+  content: '';
+  position: absolute;
+  top: -4px; left: -4px; right: -4px; bottom: -4px;
+  border-radius: 64px;
+  background: var(--neon-green);
+  box-shadow: 
+      0 0 15px var(--neon-green),
+      0 0 30px var(--neon-green),
+      0 0 60px var(--neon-green),
+      0 0 100px var(--neon-green);
+  opacity: 0; /* Invisível */
+  z-index: -1;
+  transition: opacity 0.4s ease; /* Transição suave de entrada no hover */
+}
+
+/* ============================ */
+/* CAMADAS DO CHÃO (REFLEXO)    */
+/* ============================ */
+
+/* Chão 1: Pulsante */
+.btn-container::before {
+  content: '';
+  position: absolute;
+  bottom: -35px;
+  width: 80%;
+  height: 25px;
+  background: var(--neon-green);
+  border-radius: 50%;
+  filter: blur(28px);
+  opacity: 0.5;
+  z-index: 1;
+  animation: breathe-reflection 2s infinite alternate ease-in-out;
+  transition: opacity 0.4s ease;
+}
+
+/* Chão 2: Intenso do Hover */
+.btn-container::after {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  width: 90%;
+  height: 35px;
+  background: var(--neon-green);
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.4s ease;
+}
+
+/* ============================ */
+/* AÇÃO DO HOVER (GATILHOS)     */
+/* ============================ */
+
+/* 1. Esconde as animações base (fade-out) */
+.btn-container:hover .neon-button::before,
+.btn-container:hover::before {
+  opacity: 0;
+}
+
+/* 2. Mostra as luzes intensas de hover (fade-in) */
+.btn-container:hover .neon-button::after {
+  opacity: 1;
+}
+.btn-container:hover::after {
+  opacity: 0.85;
+}
+
+/* 3. Inverte as cores do texto */
+.btn-container:hover .neon-button .text {
+  color: var(--text-dark);
+  text-shadow: none;
+}
+
+/* ============================ */
+/* KEYFRAMES ININTERRUPTOS      */
+/* ============================ */
+
+@keyframes breathe-glow {
+  0% {
+      box-shadow: 
+          0 0 8px var(--neon-green),
+          0 0 15px var(--neon-green),
+          inset 0 0 8px var(--neon-green);
+  }
+  100% {
+      box-shadow: 
+          0 0 15px var(--neon-green),
+          0 0 30px var(--neon-green),
+          inset 0 0 15px var(--neon-green);
+  }
+}
+
+@keyframes breathe-reflection {
+  0% {
+      opacity: 0.3;
+      filter: blur(25px);
+      transform: scale(0.95);
+  }
+  100% {
+      opacity: 0.6;
+      filter: blur(35px);
+      transform: scale(1.05);
+  }
+}
